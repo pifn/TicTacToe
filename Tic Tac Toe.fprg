@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="55279"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-05-21 08:03:18 "/>
+        <attribute name="created" value="NTUyNzk7Tk9URUJPT0tfREFfUEk7MjAyNC0wNS0yMTsiMDI6NTY6MzIgIjsyNTQy"/>
+        <attribute name="edited" value="NTUyNzk7Tk9URUJPT0tfREFfUEk7MjAyNC0wNS0yMTsiMDg6MDM6MTggIjsxNjsyNzA2"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="tavola" type="String" array="True" size="10"/>
+            <declare name="move, symbol, Esymbol, vincetore" type="String" array="False" size=""/>
+            <declare name="mv, i" type="Integer" array="False" size=""/>
+            <declare name="compiuto, Ecompiuto, pieno" type="Boolean" array="False" size=""/>
+            <do expression="symbol!=&quot;o&quot;&amp;&amp;symbol!=&quot;O&quot;&amp;&amp;symbol!=&quot;x&quot;&amp;&amp;symbol!=&quot;X&quot;">
+                <output expression="&quot;Want to play with x or o?&quot;" newline="True"/>
+                <input variable="symbol"/>
+                <if expression="symbol==&quot;o&quot;">
+                    <then>
+                        <assign variable="Esymbol" expression="&quot;x&quot;"/>
+                        <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                            <assign variable="tavola[i]" expression="&quot; &quot;"/>
+                        </for>
+                    </then>
+                    <else>
+                        <if expression="symbol==&quot;x&quot;">
+                            <then>
+                                <assign variable="Esymbol" expression="&quot;o&quot;"/>
+                                <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                                    <assign variable="tavola[i]" expression="&quot; &quot;"/>
+                                </for>
+                            </then>
+                            <else>
+                                <if expression="symbol==&quot;O&quot;">
+                                    <then>
+                                        <assign variable="Esymbol" expression="&quot;X&quot;"/>
+                                    </then>
+                                    <else>
+                                        <assign variable="Esymbol" expression="&quot;O&quot;"/>
+                                    </else>
+                                </if>
+                                <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                                    <assign variable="tavola[i]" expression="&quot;  &quot;"/>
+                                </for>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </do>
+            <assign variable="compiuto" expression="false"/>
+            <assign variable="Ecompiuto" expression="false"/>
+            <do expression="!compiuto &amp;&amp; !Ecompiuto &amp;&amp; !pieno">
+                <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;Make a move by saying the position where you want to put your &quot;&amp;symbol&amp;&quot;(a1, b2...)&quot;" newline="True"/>
+                <input variable="move"/>
+                <if expression="Char(move, 0) == &quot;A&quot;||Char(move, 0) == &quot;a&quot;">
+                    <then>
+                        <assign variable="mv" expression="ToInteger(Char(move, 1))-1"/>
+                    </then>
+                    <else>
+                        <if expression="Char(move, 0) == &quot;B&quot;||Char(move, 0) == &quot;b&quot;">
+                            <then>
+                                <assign variable="mv" expression="ToInteger(Char(move, 1))+3-1"/>
+                            </then>
+                            <else>
+                                <if expression="Char(move, 0) == &quot;C&quot;||Char(move, 0) == &quot;c&quot;">
+                                    <then>
+                                        <assign variable="mv" expression="ToInteger(Char(move, 1))+6-1"/>
+                                    </then>
+                                    <else>
+                                        <breakpoint expression="" always="True"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <if expression="Char(tavola[mv], 0)==&quot; &quot;">
+                    <then>
+                        <assign variable="tavola[mv]" expression="symbol"/>
+                        <assign variable="compiuto" expression="Check(tavola, symbol)"/>
+                        <if expression="!compiuto">
+                            <then>
+                                <assign variable="tavola[Move(tavola)]" expression="Esymbol"/>
+                            </then>
+                            <else/>
+                        </if>
+                        <assign variable="Ecompiuto" expression="Check(tavola, Esymbol)"/>
+                    </then>
+                    <else>
+                        <output expression="&quot;&#200;  gi&#224; occupato&quot;" newline="True"/>
+                    </else>
+                </if>
+                <assign variable="pieno" expression="true"/>
+                <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                    <if expression="Char(tavola[i], 0)==&quot; &quot;">
+                        <then>
+                            <assign variable="pieno" expression="false"/>
+                        </then>
+                        <else/>
+                    </if>
+                </for>
+            </do>
+            <if expression="compiuto">
+                <then>
+                    <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;You Won&quot;" newline="True"/>
+                </then>
+                <else>
+                    <if expression="Ecompiuto">
+                        <then>
+                            <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;I Won&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <if expression="pieno">
+                                <then>
+                                    <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;It's a tie&quot;" newline="True"/>
+                                </then>
+                                <else>
+                                    <output expression="&quot;Errore&quot;" newline="True"/>
+                                    <breakpoint expression="" always="True"/>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="Check" type="Boolean" variable="v">
+        <parameters>
+            <parameter name="tavola" type="String" array="True"/>
+            <parameter name="symbol" type="String" array="False"/>
+        </parameters>
+        <body>
+            <declare name="q, i, it, n1, n2, n3" type="Integer" array="False" size=""/>
+            <declare name="v" type="Boolean" array="False" size=""/>
+            <assign variable="q" expression="0"/>
+            <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                <if expression="tavola[i]==symbol">
+                    <then>
+                        <assign variable="q" expression="q+1"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            <declare name="s" type="Integer" array="True" size="q"/>
+            <assign variable="v" expression="false"/>
+            <if expression="q&lt;3">
+                <then/>
+                <else>
+                    <assign variable="q" expression="0"/>
+                    <for variable="i" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                        <if expression="tavola[i]==symbol">
+                            <then>
+                                <assign variable="s[q]" expression="i"/>
+                                <assign variable="q" expression="q+1"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </for>
+                    <assign variable="n2" expression="-3"/>
+                    <assign variable="n3" expression="-9"/>
+                    <for variable="i" start="0" end="Size(s)-1" direction="inc" step="1">
+                        <assign variable="n1" expression="n2"/>
+                        <assign variable="n2" expression="n3"/>
+                        <assign variable="n3" expression="s[i]"/>
+                        <if expression="n3-n2==1&amp;&amp;n2-n1==1">
+                            <then>
+                                <assign variable="v" expression="true"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </for>
+                    <for variable="i" start="0" end="Size(s)-1" direction="inc" step="1">
+                        <for variable="q" start="0" end="Size(s)-1" direction="inc" step="1">
+                            <if expression="s[q]-s[i]==3">
+                                <then>
+                                    <for variable="it" start="0" end="Size(s)-1" direction="inc" step="1">
+                                        <if expression="s[it]-3==s[q]">
+                                            <then>
+                                                <assign variable="v" expression="true"/>
+                                            </then>
+                                            <else/>
+                                        </if>
+                                    </for>
+                                </then>
+                                <else/>
+                            </if>
+                        </for>
+                    </for>
+                    <for variable="i" start="0" end="Size(s)-1" direction="inc" step="1">
+                        <if expression="s[i]==0">
+                            <then>
+                                <for variable="q" start="0" end="Size(s)-1" direction="inc" step="1">
+                                    <if expression="s[q]==4">
+                                        <then>
+                                            <for variable="it" start="0" end="Size(s)-1" direction="inc" step="1">
+                                                <if expression="s[it]==8">
+                                                    <then>
+                                                        <assign variable="v" expression="true"/>
+                                                    </then>
+                                                    <else/>
+                                                </if>
+                                            </for>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </for>
+                            </then>
+                            <else>
+                                <if expression="s[i]==2">
+                                    <then>
+                                        <for variable="q" start="0" end="Size(s)-1" direction="inc" step="1">
+                                            <if expression="s[q]==4">
+                                                <then>
+                                                    <for variable="it" start="0" end="Size(s)-1" direction="inc" step="1">
+                                                        <if expression="s[it]==6">
+                                                            <then>
+                                                                <assign variable="v" expression="true"/>
+                                                            </then>
+                                                            <else/>
+                                                        </if>
+                                                    </for>
+                                                </then>
+                                                <else/>
+                                            </if>
+                                        </for>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </else>
+                        </if>
+                    </for>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="Move" type="Integer" variable="return">
+        <parameters>
+            <parameter name="tavola" type="String" array="True"/>
+        </parameters>
+        <body>
+            <declare name="return" type="Integer" array="False" size=""/>
+            <declare name="v" type="Boolean" array="False" size=""/>
+            <assign variable="v" expression="false"/>
+            <for variable="return" start="0" end="Size(tavola)-1" direction="inc" step="1">
+                <if expression="Char(tavola[return], 0)!=&quot; &quot;">
+                    <then>
+                        <assign variable="v" expression="true"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            <if expression="v">
+                <then>
+                    <do expression="Char(tavola[return], 0)!=&quot; &quot;">
+                        <assign variable="return" expression="Random(9)"/>
+                    </do>
+                </then>
+                <else>
+                    <assign variable="return" expression="9"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
