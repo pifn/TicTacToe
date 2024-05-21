@@ -115,7 +115,7 @@
                         <else>
                             <if expression="pieno">
                                 <then>
-                                    <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;Empate&quot;" newline="True"/>
+                                    <output expression="&quot;  a b c&quot;&amp;toChar(13)&amp;&#13;&#10;&quot;1 &quot;&amp;tavola[0]&amp;&quot;|&quot;&amp;tavola[3]&amp;&quot;|&quot;&amp;tavola[6]&amp;toChar(13)&amp;&#13;&#10;&quot;2 &quot;&amp;tavola[1]&amp;&quot;|&quot;&amp;tavola[4]&amp;&quot;|&quot;&amp;tavola[7]&amp;toChar(13)&amp;&#13;&#10;&quot;3 &quot;&amp;tavola[2]&amp;&quot;|&quot;&amp;tavola[5]&amp;&quot;|&quot;&amp;tavola[8]&amp;toChar(13)&amp;&#13;&#10;&quot;Pareggio&quot;" newline="True"/>
                                 </then>
                                 <else>
                                     <output expression="&quot;Errore&quot;" newline="True"/>
