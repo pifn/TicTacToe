@@ -1,3 +1,3 @@
 # TicTacToe
-Tic tac toe on flowgorithm<br>
+Tic tac toe on some programming languages<br>
 <img src="/print"/>
